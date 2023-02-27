@@ -1,0 +1,3 @@
+{
+  "extends":["@bernankez","./.eslintrc-auto-import.json"]
+}
