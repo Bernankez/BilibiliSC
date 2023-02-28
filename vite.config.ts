@@ -18,10 +18,17 @@ export default defineConfig({
     vueJsx(),
     UnoCSS(),
     AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+      ],
       dts: true,
       eslintrc: {
         enabled: true,
       },
+      imports: ["vue", "@vueuse/core", "@vueuse/head", "vue-router"],
+      dirs: ["./src/composables"],
     }),
     Components({
       dirs: ["src/components", "src/layouts"],

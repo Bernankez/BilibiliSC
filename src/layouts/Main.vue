@@ -1,6 +1,7 @@
 <template>
-  base layout
-  <slot></slot>
+  <main class="h-full w-full">
+    <slot></slot>
+  </main>
 </template>
 
 <script setup lang="ts">
