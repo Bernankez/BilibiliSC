@@ -9,9 +9,11 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    FansTitle: typeof import('./src/components/FansTitle.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SuperChat: typeof import('./src/components/SuperChat.vue')['default']
   }
 }
