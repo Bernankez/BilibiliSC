@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+/// <reference types="vite-ssg" />
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -86,6 +87,9 @@ export default defineConfig({
     }),
     legacy({ targets: ["defaults", "not IE 11"] }),
   ],
+  ssgOptions: {
+    format: "cjs",
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),

@@ -1,25 +1,27 @@
 <template>
   <div class="flex items-center">
-    <NPopover raw :disabled="!editable" placement="bottom" trigger="click" :arrow="false">
-      <template #trigger>
-        <img class="z-1 h-9 w-9" :class="editable ? 'cursor-pointer' : ''" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
-      </template>
-      <div>
-        <div>没有在舰</div>
-        <div class="flex">
-          <ul>
-            <li>d</li>
-            <li>d</li>
-            <li>d</li>
-          </ul>
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+    <ClientOnly>
+      <NPopover raw :disabled="!editable" placement="bottom" trigger="click" :show-arrow="false">
+        <template #trigger>
+          <img class="z-1 h-9 w-9" :class="editable ? 'cursor-pointer' : ''" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+        </template>
+        <div>
+          <div>没有在舰</div>
+          <div class="flex">
+            <ul>
+              <li>d</li>
+              <li>d</li>
+              <li>d</li>
+            </ul>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </NPopover>
+      </NPopover>
+    </ClientOnly>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
         {{ titleName }}
