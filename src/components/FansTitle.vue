@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center">
-    <n-popover raw :disabled="!editable" placement="bottom" trigger="click" :arrow="false">
+    <NPopover raw :disabled="!editable" placement="bottom" trigger="click" :arrow="false">
       <template #trigger>
         <img class="z-1 h-9 w-9" :class="editable ? 'cursor-pointer' : ''" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
       </template>
@@ -19,7 +19,7 @@
           </ul>
         </div>
       </div>
-    </n-popover>
+    </NPopover>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
         {{ titleName }}
@@ -46,7 +46,6 @@ const { titleName = "", level = "", captainType = CaptainTypes.captain, editable
   level?: string;
   editable?: boolean;
 }>();
-console.log(titleName);
 const titleBackground = useTitleBackground(computed(() => level));
 
 const captainLogos: Record<CaptainTypes, string> = {

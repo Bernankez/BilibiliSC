@@ -1,4 +1,7 @@
-export function useBackground() {
+import { isClient, isDefined } from "@vueuse/core";
+
+export function useBackground(options?: { startOnMount?: boolean }) {
+  const { startOnMount = true } = options || {};
   const hsl = ref(0);
   const getHsl = (offset: number) => {
     return (hsl.value % 360) + offset;
@@ -9,8 +12,10 @@ export function useBackground() {
   const STEP = 1;
   const INTERVAL_FRAME = 5;
   let counter = 0;
-  let timer: number;
-  onMounted(() => {
+  let timer: number | undefined;
+
+  function start() {
+    if (isDefined(timer) || !isClient) { return; }
     timer = requestAnimationFrame(function loop() {
       counter++;
       if (counter % INTERVAL_FRAME !== 0) {
@@ -24,13 +29,26 @@ export function useBackground() {
       hsl.value += STEP;
       timer = requestAnimationFrame(loop);
     });
+  }
+
+  function stop() {
+    isDefined(timer) && isClient && cancelAnimationFrame(timer);
+    timer = undefined;
+  }
+
+  onMounted(() => {
+    if (startOnMount) {
+      start();
+    }
   });
 
   onUnmounted(() => {
-    cancelAnimationFrame(timer);
+    stop();
   });
 
   return {
     hslList,
+    start,
+    stop,
   };
 }

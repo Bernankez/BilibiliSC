@@ -9,10 +9,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Background: typeof import('./src/components/Background.vue')['default']
     FansTitle: typeof import('./src/components/FansTitle.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
-    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NPopover: typeof import('naive-ui')['NPopover']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
