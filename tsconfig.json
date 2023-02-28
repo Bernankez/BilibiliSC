@@ -16,7 +16,8 @@
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["./*"]
-    }
+    },
+    "types": ["@vue-macros/reactivity-transform/macros-global"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "components.d.ts", "auto-imports.d.ts", "changelogithub.config.ts", "unocss.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

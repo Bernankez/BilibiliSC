@@ -7,6 +7,7 @@ specifiers:
   '@vitejs/plugin-legacy': ^4.0.1
   '@vitejs/plugin-vue': ^4.0.0
   '@vitejs/plugin-vue-jsx': ^3.0.0
+  '@vue-macros/reactivity-transform': ^0.2.4
   '@vueuse/core': ^9.13.0
   '@vueuse/head': ^1.1.9
   bumpp: ^9.0.0
@@ -46,6 +47,7 @@ devDependencies:
   '@vitejs/plugin-legacy': 4.0.1_terser@5.16.5+vite@4.1.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.4+vue@3.2.47
   '@vitejs/plugin-vue-jsx': 3.0.0_vite@4.1.4+vue@3.2.47
+  '@vue-macros/reactivity-transform': 0.2.4_vue@3.2.47
   bumpp: 9.0.0
   changelogithub: 0.12.7
   eslint: 8.35.0
@@ -2606,6 +2608,40 @@ packages:
     dependencies:
       '@volar/typescript': 1.3.0-alpha.0
       '@volar/vue-language-core': 1.2.0
+    dev: true
+
+  /@vue-macros/common/1.1.0_vue@3.2.47:
+    resolution: {integrity: sha512-BvreSru0kh6q/PFAt4erTY29buoVzLoUfXp1nW2cS9PQ589Y76iACw0NcjflXUUxGPRxQkQK+iRx/c4pUj0eeQ==}
+    engines: {node: '>=14.19.0'}
+    peerDependencies:
+      vue: ^2.7.0 || ^3.2.25
+    peerDependenciesMeta:
+      vue:
+        optional: true
+    dependencies:
+      '@babel/types': 7.21.2
+      '@vue/compiler-sfc': 3.2.47
+      local-pkg: 0.4.3
+      magic-string: 0.29.0
+      vue: 3.2.47
+    dev: true
+
+  /@vue-macros/reactivity-transform/0.2.4_vue@3.2.47:
+    resolution: {integrity: sha512-3DhJoZrubm7rFXJScbcjqNJliY/mnqjte2ZZtiZBdwId+qwpmvmzKy3jRHcv6h7D+HwBsnQN9i8rIis46HNdvA==}
+    engines: {node: '>=14.19.0'}
+    peerDependencies:
+      vue: ^2.7.0 || ^3.2.25
+    dependencies:
+      '@babel/parser': 7.21.2
+      '@rollup/pluginutils': 5.0.2
+      '@vue-macros/common': 1.1.0_vue@3.2.47
+      '@vue/compiler-core': 3.2.47
+      '@vue/shared': 3.2.47
+      magic-string: 0.29.0
+      unplugin: 1.1.0
+      vue: 3.2.47
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /@vue/babel-helper-vue-transform-on/1.0.2:
