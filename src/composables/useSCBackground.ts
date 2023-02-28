@@ -1,4 +1,11 @@
-export function useSCBackground(battery: string) {
+import type { MaybeRef } from "@vueuse/core";
+
+export function useSCBackground(battery: MaybeRef<string>) {
+  const batteryRef = ref(battery);
+  return computed(() => getSCBackground(batteryRef.value));
+}
+
+function getSCBackground(battery: string) {
   const batteryNum = parseInt(battery);
   if (batteryNum > 10000) {
     return ["#AB1A32", "#FFD8D8"];

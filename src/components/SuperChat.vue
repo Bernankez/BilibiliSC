@@ -28,8 +28,8 @@ const { captainType = CaptainTypes.captain, level = "21", name = "用户名", ti
   editable?: boolean;
 }>();
 
-const nameColor = computed(() => useNameColor(captainType));
-const scBackground = computed(() => useSCBackground(battery));
+const nameColor = useNameColor(computed(() => captainType));
+const scBackground = useSCBackground(computed(() => battery));
 </script>
 
 <style scoped>

@@ -1,4 +1,11 @@
-export function useTitleBackground(level: string) {
+import type { MaybeRef } from "@vueuse/core";
+
+export function useTitleBackground(level: MaybeRef<string>) {
+  const levelRef = ref(level);
+  return computed(() => getTitleBackground(levelRef.value));
+}
+
+function getTitleBackground(level: string) {
   const levelNum = parseInt(level);
   if (levelNum > 36) {
     return ["#FF6913", "#FFAD5E"];
@@ -22,3 +29,4 @@ export function useTitleBackground(level: string) {
     return ["#5C968E"];
   }
 }
+

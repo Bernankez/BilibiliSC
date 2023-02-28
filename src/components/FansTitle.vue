@@ -27,7 +27,7 @@ const { titleName = "", level = "", captainType = CaptainTypes.captain } = defin
   level?: string;
 }>();
 console.log(titleName);
-const titleBackground = computed(() => useTitleBackground(level));
+const titleBackground = useTitleBackground(computed(() => level));
 
 const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.captain]: captain,

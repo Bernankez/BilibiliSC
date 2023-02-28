@@ -1,6 +1,12 @@
+import type { MaybeRef } from "@vueuse/core";
 import { CaptainTypes } from "@/types";
 
-export function useNameColor(captainType: CaptainTypes) {
+export function useNameColor(captainType: MaybeRef<CaptainTypes>) {
+  const captainTypeRef = ref(captainType);
+  return computed(() => getNameColor(captainTypeRef.value));
+}
+
+function getNameColor(captainType: CaptainTypes) {
   switch (captainType) {
     case CaptainTypes.captain:
     case CaptainTypes.captainThousand:
