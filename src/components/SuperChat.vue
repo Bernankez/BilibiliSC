@@ -2,7 +2,7 @@
   <div class="super-chat min-w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
     <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
       <div class="flex items-center">
-        <FansTitle :captain-type="captainType" :level="level" :title-name="titleName" />
+        <FansTitle :captain-type="captainType" :level="level" :title-name="titleName" :editable="editable" />
         <span class="name m-l-2">{{ name }}</span>
       </div>
       <div class="text-default">

@@ -8,4 +8,5 @@ export enum CaptainTypes {
   // 提督
   viceroy,
   viceroyThousand,
+  none,
 }

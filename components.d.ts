@@ -12,6 +12,8 @@ declare module '@vue/runtime-core' {
     FansTitle: typeof import('./src/components/FansTitle.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NPopover: typeof import('naive-ui')['NPopover']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SuperChat: typeof import('./src/components/SuperChat.vue')['default']

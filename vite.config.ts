@@ -7,6 +7,7 @@ import legacy from "@vitejs/plugin-legacy";
 import { VitePWA } from "vite-plugin-pwa";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import Inspector from "unplugin-vue-inspector/vite";
 import Inspect from "vite-plugin-inspect";
 import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
@@ -29,7 +30,9 @@ export default defineConfig({
       eslintrc: {
         enabled: true,
       },
-      imports: ["vue", "@vueuse/core", "@vueuse/head", "vue-router"],
+      imports: ["vue", "@vueuse/core", "@vueuse/head", "vue-router", {
+        "naive-ui": ["useDialog", "useMessage", "useNotification", "useLoadingbar"],
+      }],
       dirs: ["./src/composables"],
     }),
     Components({
@@ -41,6 +44,7 @@ export default defineConfig({
           names: ["RouterLink", "RouterView"],
         },
       ],
+      resolvers: [NaiveUiResolver()],
     }),
     Inspector(),
     Inspect(),

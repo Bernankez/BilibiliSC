@@ -10,11 +10,6 @@ import { colorBackground, colorDarkBackground, colorDisabled, colorPrimaryRed as
 </script>
 
 <style lang="scss">
-::selection {
-  background-color: v-bind("colorPrimary.DEFAULT");
-  color: #fff;
-}
-
 ::-webkit-scrollbar {
   height: 13px;
   width: 13px;

@@ -1,6 +1,6 @@
 <template>
   <div class="background h-full w-full flex items-center justify-center">
-    <SuperChat battery="20000" level="33" :captain-type="2" />
+    <SuperChat battery="20000" level="33" :captain-type="2" :editable="true" />
   </div>
 </template>
 

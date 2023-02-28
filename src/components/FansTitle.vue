@@ -1,6 +1,25 @@
 <template>
   <div class="flex items-center">
-    <img class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+    <n-popover raw :disabled="!editable" placement="bottom" trigger="click" :arrow="false">
+      <template #trigger>
+        <img class="z-1 h-9 w-9" :class="editable ? 'cursor-pointer' : ''" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+      </template>
+      <div>
+        <div>没有在舰</div>
+        <div class="flex">
+          <ul>
+            <li>d</li>
+            <li>d</li>
+            <li>d</li>
+          </ul>
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </n-popover>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
         {{ titleName }}
@@ -21,10 +40,11 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName = "", level = "", captainType = CaptainTypes.captain } = defineProps<{
+const { titleName = "", level = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
+  editable?: boolean;
 }>();
 console.log(titleName);
 const titleBackground = useTitleBackground(computed(() => level));
@@ -36,6 +56,7 @@ const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.governorThousand]: governorThousand,
   [CaptainTypes.viceroy]: viceroy,
   [CaptainTypes.viceroyThousand]: viceroyThousand,
+  [CaptainTypes.none]: "",
 };
 </script>
 
