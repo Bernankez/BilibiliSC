@@ -2,7 +2,7 @@
   <div class="super-chat min-w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
     <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
       <div class="flex items-center">
-        <FansTitle v-model:captain-type="captainType" :level="level" :title-name="titleName" :editable="editable" />
+        <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" :level="level" :editable="editable" />
         <span class="name m-l-2">{{ name }}</span>
       </div>
       <div class="text-default">
@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { CaptainTypes } from "@/types";
 
-const { captainType: _captainType = CaptainTypes.captain, level = "21", name = "用户名", titleName = "粉丝牌", battery = "300", superChat = "你的留言", editable = false } = defineProps<{
+const { captainType: _captainType = CaptainTypes.captain, level = "21", name = "用户名", titleName: _titleName = "粉丝牌", battery = "300", superChat = "你的留言", editable = false } = defineProps<{
   captainType?: CaptainTypes;
   level?: string;
   titleName?: string;
@@ -30,6 +30,7 @@ const { captainType: _captainType = CaptainTypes.captain, level = "21", name = "
 
 const emit = defineEmits<{
   (event: "update:captainType", captain: CaptainTypes): void;
+  (event: "update:titleName", titleName: string): void;
 }>();
 
 const captainType = computed({
@@ -38,6 +39,14 @@ const captainType = computed({
   },
   set(v: CaptainTypes) {
     emit("update:captainType", v);
+  },
+});
+const titleName = computed({
+  get() {
+    return _titleName;
+  },
+  set(v: string) {
+    emit("update:titleName", v);
   },
 });
 

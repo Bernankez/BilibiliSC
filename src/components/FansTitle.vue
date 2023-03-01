@@ -3,9 +3,9 @@
     <ClientOnly>
       <NPopover ref="popoverRef" raw placement="bottom" trigger="click" :show-arrow="false">
         <template #trigger>
-          <img v-if="captainType !== CaptainTypes.none" class="z-1 h-9 w-9 cursor-pointer" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
-          <pre v-else class="z-1 hover:bg-background-lighter bg-opacity-50! rounded-1 transition cursor-pointer w-5 h-9 m-0">
-          </pre>
+          <img v-if="showCaptain" class="z-1 h-9 w-9 cursor-pointer" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+          <div v-else class="z-1 hover:bg-background-lighter bg-opacity-50! rounded-1 transition cursor-pointer w-4 h-9">
+          </div>
         </template>
         <div class="flex flex-col rounded-6px bg-#ffffff77 backdrop-blur backdrop-saturate-50">
           <div class="text-center text-4 text-default m-1 p-1 box-border cursor-pointer select-none rounded-6px bg-opacity-50! hover:bg-background transition" @click="() => onCaptain(CaptainTypes.none)">
@@ -30,7 +30,8 @@
     </ClientOnly>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
-        {{ titleName }}
+        <span v-if="!titleInput" class="cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1 whitespace-pre" @click="() => titleInput = true">{{ titleName || '    ' }}</span>
+        <input v-else ref="titleNameRef" v-model="titleName" class="bg-#ffffff55 outline-none border-none w-13 text-white" type="text" @focusout="() => titleInput = false" />
       </div>
       <div class="bg-white flex items-center p-x-4px box-border">
         {{ level }}
@@ -38,10 +39,10 @@
     </div>
   </div>
   <div v-else class="flex items-center">
-    <img v-if="captainType !== CaptainTypes.none" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
-    <pre v-else class="z-1 m-0 h-9 w-1"></pre>
-    <div class="title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="captainType === CaptainTypes.none ? '' : '-m-l-3'">
-      <div class="text-white flex items-center p-r-4px box-border" :class="captainType === CaptainTypes.none ? 'p-l-4px' : 'p-l-11px'">
+    <img v-if="showCaptain" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+    <div v-else class="z-1 m-0 h-9 w-1"></div>
+    <div v-if="showTitle" class="title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="!showCaptain ? '' : '-m-l-3'">
+      <div class="text-white flex items-center p-r-4px box-border" :class="!showCaptain ? 'p-l-4px' : 'p-l-11px'">
         {{ titleName }}
       </div>
       <div class="bg-white flex items-center p-x-4px box-border">
@@ -61,7 +62,7 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName = "", level = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
+const { titleName: _titleName = "", level = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
@@ -70,7 +71,17 @@ const { titleName = "", level = "", captainType = CaptainTypes.captain, editable
 
 const emit = defineEmits<{
   (event: "update:captainType", captainType: CaptainTypes): void;
+  (event: "update:titleName", titleName: string): void;
 }>();
+
+const titleName = computed({
+  get() {
+    return _titleName;
+  },
+  set(v: string) {
+    emit("update:titleName", v);
+  },
+});
 
 const titleBackground = useTitleBackground(computed(() => level));
 
@@ -84,11 +95,18 @@ const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.none]: "",
 };
 
+const showCaptain = computed(() => captainType !== CaptainTypes.none);
+const showTitle = computed(() => !!titleName.value);
+
 const popoverRef = ref<PopoverInst>();
 const onCaptain = (captain: CaptainTypes) => {
   emit("update:captainType", captain);
   popoverRef.value?.setShow(false);
 };
+
+const titleInput = ref(false);
+const titleNameRef = ref<HTMLInputElement>();
+onClickOutside(titleNameRef, () => titleInput.value = false);
 </script>
 
 <style lang="scss" scoped>
