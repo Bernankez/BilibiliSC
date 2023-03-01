@@ -18,6 +18,6 @@ function getNameColor(captainType: CaptainTypes) {
     case CaptainTypes.viceroyThousand:
       return "#E17AFF";
     default:
-      return "";
+      return "#333333";
   }
 }

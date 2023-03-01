@@ -1,23 +1,29 @@
 <template>
-  <div class="flex items-center">
+  <div v-if="editable" class="flex items-center">
     <ClientOnly>
-      <NPopover raw :disabled="!editable" placement="bottom" trigger="click" :show-arrow="false">
+      <NPopover ref="popoverRef" raw placement="bottom" trigger="click" :show-arrow="false">
         <template #trigger>
-          <img class="z-1 h-9 w-9" :class="editable ? 'cursor-pointer' : ''" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+          <img v-if="captainType !== CaptainTypes.none" class="z-1 h-9 w-9 cursor-pointer" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+          <pre v-else class="z-1 hover:bg-background-lighter bg-opacity-50! rounded-1 transition cursor-pointer w-5 h-9 m-0">
+          </pre>
         </template>
-        <div>
-          <div>没有在舰</div>
-          <div class="flex">
-            <ul>
-              <li>d</li>
-              <li>d</li>
-              <li>d</li>
-            </ul>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
+        <div class="flex flex-col rounded-6px bg-#ffffff77 backdrop-blur backdrop-saturate-50">
+          <div class="text-center text-4 text-default m-1 p-1 box-border cursor-pointer select-none rounded-6px bg-opacity-50! hover:bg-background transition" @click="() => onCaptain(CaptainTypes.none)">
+            没有在舰
+          </div>
+          <div class="flex m-1 m-t-0">
+            <div class="captain-list">
+              <div>没千舰</div>
+              <img :src="captain" alt="captain" @click="() => onCaptain(CaptainTypes.captain)" />
+              <img :src="viceroy" alt="viceroy" @click="() => onCaptain(CaptainTypes.viceroy)" />
+              <img :src="governor" alt="governor" @click="() => onCaptain(CaptainTypes.governor)" />
+            </div>
+            <div class="captain-list">
+              <div>千舰</div>
+              <img :src="captainThousand" alt="captainThousand" @click="() => onCaptain(CaptainTypes.captainThousand)" />
+              <img :src="viceroyThousand" alt="viceroyThousand" @click="() => onCaptain(CaptainTypes.viceroyThousand)" />
+              <img :src="governorThousand" alt="governorThousand" @click="() => onCaptain(CaptainTypes.governorThousand)" />
+            </div>
           </div>
         </div>
       </NPopover>
@@ -31,9 +37,22 @@
       </div>
     </div>
   </div>
+  <div v-else class="flex items-center">
+    <img v-if="captainType !== CaptainTypes.none" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+    <pre v-else class="z-1 m-0 h-9 w-1"></pre>
+    <div class="title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="captainType === CaptainTypes.none ? '' : '-m-l-3'">
+      <div class="text-white flex items-center p-r-4px box-border" :class="captainType === CaptainTypes.none ? 'p-l-4px' : 'p-l-11px'">
+        {{ titleName }}
+      </div>
+      <div class="bg-white flex items-center p-x-4px box-border">
+        {{ level }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
+import type { PopoverInst } from "naive-ui";
 import captain from "@/assets/images/icons/captain.png";
 import captainThousand from "@/assets/images/icons/captain_thousand.png";
 import governor from "@/assets/images/icons/governor.png";
@@ -48,6 +67,11 @@ const { titleName = "", level = "", captainType = CaptainTypes.captain, editable
   level?: string;
   editable?: boolean;
 }>();
+
+const emit = defineEmits<{
+  (event: "update:captainType", captainType: CaptainTypes): void;
+}>();
+
 const titleBackground = useTitleBackground(computed(() => level));
 
 const captainLogos: Record<CaptainTypes, string> = {
@@ -59,10 +83,29 @@ const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.viceroyThousand]: viceroyThousand,
   [CaptainTypes.none]: "",
 };
+
+const popoverRef = ref<PopoverInst>();
+const onCaptain = (captain: CaptainTypes) => {
+  emit("update:captainType", captain);
+  popoverRef.value?.setShow(false);
+};
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title-background {
   background: linear-gradient(to right, v-bind("titleBackground[0]"), v-bind("titleBackground[1]"));
+}
+
+.captain-list {
+  @apply flex flex-col items-center flex-1;
+
+  & div {
+    @apply p-x-2 box-border text-default-light select-none;
+  }
+
+  & img {
+    --un-bg-opacity: 0.5 !important;
+    @apply p-1 box-border w-15 h-10 object-scale-down rounded-6px cursor-pointer hover-bg-background-lighter transition;
+  }
 }
 </style>
