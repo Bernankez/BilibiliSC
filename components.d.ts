@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Background: typeof import('./src/components/Background.vue')['default']
     FansTitle: typeof import('./src/components/FansTitle.vue')['default']
+    FocusedInput: typeof import('./src/components/FocusedInput.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
     NPopover: typeof import('naive-ui')['NPopover']
