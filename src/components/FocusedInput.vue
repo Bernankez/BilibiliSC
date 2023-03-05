@@ -16,31 +16,27 @@
 <script setup lang="ts">
 import type { StyleValue } from "vue";
 
-const { modelValue: _modelValue = "", inputStyle, inputClass, textStyle, textClass, inputElement: _inputElement } = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue?: string | number;
   inputStyle?: StyleValue;
   inputClass?: any;
   textStyle?: StyleValue;
   textClass?: any;
   inputElement?: HTMLElement;
-}>();
+}>(), {
+  modelValue: "",
+});
 
 const emit = defineEmits<{
   (event: "update:modelValue", value: string | number): void;
 }>();
 
-const modelValue = computed({
-  get() {
-    return _modelValue;
-  },
-  set(v: string | number) {
-    emit("update:modelValue", v);
-  },
-});
+const { modelValue } = useVModels(props, emit);
+const { inputStyle, inputClass, textStyle, textClass, inputElement: _inputElement } = toRefs(props);
 
 const showInput = ref(false);
 const inputRef = ref<HTMLInputElement>();
-const inputElement = computed(() => _inputElement || inputRef.value);
+const inputElement = computed(() => _inputElement?.value || inputRef.value);
 onClickOutside(inputElement, () => showInput.value = false);
 </script>
 

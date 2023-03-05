@@ -75,13 +75,19 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName: _titleName = "", level: _level = "", name: _name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
+const props = withDefaults(defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
   name?: string;
   editable?: boolean;
-}>();
+}>(), {
+  captainType: CaptainTypes.captain,
+  titleName: "",
+  level: "",
+  name: "",
+  editable: false,
+});
 
 const emit = defineEmits<{
   (event: "update:captainType", captainType: CaptainTypes): void;
@@ -90,30 +96,8 @@ const emit = defineEmits<{
   (event: "update:name", name: string): void;
 }>();
 
-const titleName = computed({
-  get() {
-    return _titleName;
-  },
-  set(v: string) {
-    emit("update:titleName", v);
-  },
-});
-const level = computed({
-  get() {
-    return _level;
-  },
-  set(v: string) {
-    emit("update:level", v);
-  },
-});
-const name = computed({
-  get() {
-    return _name;
-  },
-  set(v: string) {
-    emit("update:name", v);
-  },
-});
+const { titleName, level, name, editable } = useVModels(props, emit);
+const { captainType } = toRefs(props);
 
 const titleBackground = useTitleBackground(computed(() => level.value));
 
@@ -127,7 +111,7 @@ const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.none]: "",
 };
 
-const showCaptain = computed(() => captainType !== CaptainTypes.none);
+const showCaptain = computed(() => captainType.value !== CaptainTypes.none);
 const showTitle = computed(() => !!titleName.value);
 
 const popoverRef = ref<PopoverInst>();
@@ -140,7 +124,7 @@ const titleInput = ref(false);
 const titleNameRef = ref<HTMLInputElement>();
 onClickOutside(titleNameRef, () => titleInput.value = false);
 
-const nameColor = useNameColor(computed(() => captainType));
+const nameColor = useNameColor(computed(() => captainType.value));
 </script>
 
 <style lang="scss" scoped>

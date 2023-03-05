@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { CaptainTypes } from "@/types";
 
-const { captainType: _captainType = CaptainTypes.captain, level: _level = "21", name: _name = "用户名", titleName: _titleName = "粉丝牌", battery = "300", superChat = "你的留言", editable = false } = defineProps<{
+const props = withDefaults(defineProps<{
   captainType?: CaptainTypes;
   level?: string;
   titleName?: string;
@@ -23,7 +23,15 @@ const { captainType: _captainType = CaptainTypes.captain, level: _level = "21", 
   battery?: string;
   superChat?: string;
   editable?: boolean;
-}>();
+}>(), {
+  captainType: CaptainTypes.captain,
+  level: "21",
+  name: "用户名",
+  titleName: "粉丝牌",
+  battery: "300",
+  superChat: "你的留言",
+  editable: false,
+});
 
 const emit = defineEmits<{
   (event: "update:captainType", captain: CaptainTypes): void;
@@ -32,40 +40,10 @@ const emit = defineEmits<{
   (event: "update:name", name: string): void;
 }>();
 
-const captainType = computed({
-  get() {
-    return _captainType;
-  },
-  set(v: CaptainTypes) {
-    emit("update:captainType", v);
-  },
-});
-const titleName = computed({
-  get() {
-    return _titleName;
-  },
-  set(v: string) {
-    emit("update:titleName", v);
-  },
-});
-const level = computed({
-  get() {
-    return _level;
-  },
-  set(v: string) {
-    emit("update:level", v);
-  },
-});
-const name = computed({
-  get() {
-    return _name;
-  },
-  set(v: string) {
-    emit("update:name", v);
-  },
-});
+const { captainType, titleName, level, name, battery, superChat } = useVModels(props, emit);
+const { editable } = toRefs(props);
 
-const scBackground = useSCBackground(computed(() => battery));
+const scBackground = useSCBackground(computed(() => battery.value));
 </script>
 
 <style scoped>
