@@ -42,7 +42,13 @@
         </FocusedInput>
       </div>
     </div>
-    <span class="name m-l-2">{{ name }}</span>
+    <span class="name m-l-2">
+      <FocusedInput v-model="name" input-class="w-40" text-class="w-40">
+        <template #default="{ value }">
+          {{ value || "    " }}
+        </template>
+      </FocusedInput>
+    </span>
   </div>
   <div v-else class="flex items-center">
     <img v-if="showCaptain" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
@@ -69,7 +75,7 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName: _titleName = "", level: _level = "", name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
+const { titleName: _titleName = "", level: _level = "", name: _name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
@@ -81,6 +87,7 @@ const emit = defineEmits<{
   (event: "update:captainType", captainType: CaptainTypes): void;
   (event: "update:titleName", titleName: string): void;
   (event: "update:level", level: string): void;
+  (event: "update:name", name: string): void;
 }>();
 
 const titleName = computed({
@@ -91,13 +98,20 @@ const titleName = computed({
     emit("update:titleName", v);
   },
 });
-
 const level = computed({
   get() {
     return _level;
   },
   set(v: string) {
     emit("update:level", v);
+  },
+});
+const name = computed({
+  get() {
+    return _name;
+  },
+  set(v: string) {
+    emit("update:name", v);
   },
 });
 
