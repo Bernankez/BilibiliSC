@@ -40,6 +40,7 @@
         {{ level }}
       </div>
     </div>
+    <span class="name m-l-2">{{ name }}</span>
   </div>
   <div v-else class="flex items-center">
     <img v-if="showCaptain" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
@@ -52,6 +53,7 @@
         {{ level }}
       </div>
     </div>
+    <span class="name" :class="showTitle ? 'm-l-2' : 'm-l-1'">{{ name }}</span>
   </div>
 </template>
 
@@ -65,10 +67,11 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName: _titleName = "", level = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
+const { titleName: _titleName = "", level = "", name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
+  name?: string;
   editable?: boolean;
 }>();
 
@@ -110,11 +113,17 @@ const onCaptain = (captain: CaptainTypes) => {
 const titleInput = ref(false);
 const titleNameRef = ref<HTMLInputElement>();
 onClickOutside(titleNameRef, () => titleInput.value = false);
+
+const nameColor = useNameColor(computed(() => captainType));
 </script>
 
 <style lang="scss" scoped>
 .title-background {
   background: linear-gradient(to right, v-bind("titleBackground[0]"), v-bind("titleBackground[1]"));
+}
+
+.name {
+  color: v-bind(nameColor)
 }
 
 .captain-list {

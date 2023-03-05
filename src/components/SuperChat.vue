@@ -1,10 +1,7 @@
 <template>
   <div class="super-chat min-w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
     <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
-      <div class="flex items-center">
-        <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" :level="level" :editable="editable" />
-        <span class="name m-l-2">{{ name }}</span>
-      </div>
+      <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" :level="level" :name="name" :editable="editable" />
       <div class="text-default">
         {{ battery }}电池
       </div>
@@ -50,7 +47,6 @@ const titleName = computed({
   },
 });
 
-const nameColor = useNameColor(computed(() => captainType.value));
 const scBackground = useSCBackground(computed(() => battery));
 </script>
 
@@ -61,9 +57,5 @@ const scBackground = useSCBackground(computed(() => battery));
 
 .super-chat-info {
   background-color: v-bind("scBackground[1]");
-}
-
-.name {
-  color: v-bind(nameColor)
 }
 </style>
