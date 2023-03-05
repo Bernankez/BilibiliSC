@@ -8,7 +8,7 @@
   </template>
   <template v-else>
     <slot name="input">
-      <input ref="inputRef" v-model="modelValue" :class="inputClass" class="bg-#ffffff55 outline-none border-none text-white" :style="inputStyle" type="text" @focusout="() => showInput = false" />
+      <input ref="inputRef" v-model="modelValue" :class="inputClass" class="bg-#ffffff55 outline-none border-none" :style="inputStyle" type="text" @focusout="() => showInput = false" />
     </slot>
   </template>
 </template>

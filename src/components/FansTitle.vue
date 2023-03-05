@@ -30,14 +30,16 @@
     </ClientOnly>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
-        <FocusedInput v-model="titleName" input-class="w-13">
+        <FocusedInput v-model="titleName" input-class="w-13 text-white">
           <template #default="{ value }">
             {{ value || "    " }}
           </template>
         </FocusedInput>
       </div>
       <div class="bg-white flex items-center p-x-4px box-border">
-        {{ level }}
+        <FocusedInput v-model="level" input-class="w-5">
+          {{ level }}
+        </FocusedInput>
       </div>
     </div>
     <span class="name m-l-2">{{ name }}</span>
@@ -67,7 +69,7 @@ import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
 
-const { titleName: _titleName = "", level = "", name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
+const { titleName: _titleName = "", level: _level = "", name = "", captainType = CaptainTypes.captain, editable = false } = defineProps<{
   captainType?: CaptainTypes;
   titleName?: string;
   level?: string;
@@ -78,6 +80,7 @@ const { titleName: _titleName = "", level = "", name = "", captainType = Captain
 const emit = defineEmits<{
   (event: "update:captainType", captainType: CaptainTypes): void;
   (event: "update:titleName", titleName: string): void;
+  (event: "update:level", level: string): void;
 }>();
 
 const titleName = computed({
@@ -89,7 +92,16 @@ const titleName = computed({
   },
 });
 
-const titleBackground = useTitleBackground(computed(() => level));
+const level = computed({
+  get() {
+    return _level;
+  },
+  set(v: string) {
+    emit("update:level", v);
+  },
+});
+
+const titleBackground = useTitleBackground(computed(() => level.value));
 
 const captainLogos: Record<CaptainTypes, string> = {
   [CaptainTypes.captain]: captain,

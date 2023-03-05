@@ -26,7 +26,7 @@ function getTitleBackground(level: string) {
   } else if (levelNum > 4) {
     return ["#5D7B9E", "#5D7B9E"];
   } else {
-    return ["#5C968E"];
+    return ["#5C968E", "#5C968E"];
   }
 }
 
