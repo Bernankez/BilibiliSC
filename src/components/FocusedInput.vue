@@ -1,8 +1,13 @@
 <template>
-  <template v-if="!showInput">
+  <template v-if="!editable">
+    <slot :value="modelValue">
+      {{ modelValue }}
+    </slot>
+  </template>
+  <template v-else-if="!showInput">
     <div :style="textStyle" :class="textClass" class="inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1 whitespace-pre" @click="() => showInput = true">
       <slot :value="modelValue">
-        {{ modelValue }}
+        {{ holder ? modelValue || '    ' : modelValue }}
       </slot>
     </div>
   </template>
@@ -23,8 +28,12 @@ const props = withDefaults(defineProps<{
   textStyle?: StyleValue;
   textClass?: any;
   inputElement?: HTMLElement;
+  editable?: boolean;
+  holder?: boolean;
 }>(), {
   modelValue: "",
+  editable: true,
+  holder: true,
 });
 
 const emit = defineEmits<{
@@ -32,7 +41,7 @@ const emit = defineEmits<{
 }>();
 
 const { modelValue } = useVModels(props, emit);
-const { inputStyle, inputClass, textStyle, textClass, inputElement: _inputElement } = toRefs(props);
+const { inputStyle, inputClass, textStyle, textClass, inputElement: _inputElement, editable, holder } = toRefs(props);
 
 const showInput = ref(false);
 const inputRef = ref<HTMLInputElement>();
