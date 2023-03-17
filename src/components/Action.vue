@@ -1,5 +1,5 @@
 <template>
-  <div role="button" :class="sizeClass.button" class="group flex justify-center items-center rounded-99 bg-background hover:bg-background-lighter transition bg-opacity-50! backdrop-blur backdrop-saturate-50 cursor-pointer shadow hover:shadow-md active:shadow active:shadow-inset">
+  <div role="button" :class="sizeClass.button" class="group flex justify-center items-center rounded-99 bg-background hover:bg-background-lighter transition bg-opacity-50! backdrop-blur backdrop-saturate-50 cursor-pointer shadow hover:shadow-md active:shadow active:shadow-inset" @click="onClick">
     <slot :class="defaultClass">
       <div :class="[defaultClass, icon, sizeClass.icon] "></div>
     </slot>
@@ -10,6 +10,10 @@
 const { size = "medium", icon = "" } = defineProps<{
   size?: "small" | "medium" | "large";
   icon?: string;
+}>();
+
+const emit = defineEmits<{
+  (event: "click", e: MouseEvent): void;
 }>();
 
 const defaultClass = "text-default-light group-hover:text-default transition";
@@ -32,4 +36,8 @@ const sizeClass = computed(() => {
     };
   }
 });
+
+const onClick = (e: MouseEvent) => {
+  emit("click", e);
+};
 </script>
