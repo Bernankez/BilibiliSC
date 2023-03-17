@@ -30,6 +30,7 @@
   "devDependencies": {
     "@bernankez/eslint-config": "^0.2.2",
     "@bernankez/theme": "^0.1.2",
+    "@iconify-json/uil": "^1.1.4",
     "@types/node": "^18.14.2",
     "@vitejs/plugin-legacy": "^4.0.1",
     "@vitejs/plugin-vue": "^4.0.0",

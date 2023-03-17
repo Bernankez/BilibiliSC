@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@bernankez/eslint-config': ^0.2.2
   '@bernankez/theme': ^0.1.2
+  '@iconify-json/uil': ^1.1.4
   '@types/node': ^18.14.2
   '@vitejs/plugin-legacy': ^4.0.1
   '@vitejs/plugin-vue': ^4.0.0
@@ -45,6 +46,7 @@ dependencies:
 devDependencies:
   '@bernankez/eslint-config': 0.2.2_ycpbpc6yetojsgtrx3mwntkhsu
   '@bernankez/theme': 0.1.2
+  '@iconify-json/uil': 1.1.4
   '@types/node': 18.14.2
   '@vitejs/plugin-legacy': 4.0.1_terser@5.16.5+vite@4.1.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.4+vue@3.2.47
@@ -1869,6 +1871,12 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/uil/1.1.4:
+    resolution: {integrity: sha512-ucuFHlUvkfQUnyq4l2Sskrdg8r5DB8IQwMxEpPQ2JG1QTRbUmliddTT9r8/b3h69w+/IySHUy+iJcbfiHoa9zA==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types/2.0.0:
