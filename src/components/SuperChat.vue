@@ -1,13 +1,14 @@
 <template>
-  <div class="super-chat min-w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
+  <div class="super-chat w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
     <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
-      <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" v-model:level="level" v-model:name="name" :editable="editable" />
-      <div class="text-default">
-        {{ battery }}电池
+      <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" v-model:level="level" v-model:name="name" class="truncate" :editable="editable" />
+      <div class="text-default shrink-0">
+        <FocusedInput v-model="battery" :editable="editable" input-class="w-12" />
+        电池
       </div>
     </div>
     <div class="text-white p-2 box-border">
-      {{ superChat }}
+      <FocusedInput v-model="superChat" :editable="editable" input-class="w-full text-white" text-class="w-full" />
     </div>
   </div>
 </template>
@@ -20,7 +21,7 @@ const props = withDefaults(defineProps<{
   level?: string;
   titleName?: string;
   name?: string;
-  battery?: string;
+  battery?: string | number;
   superChat?: string;
   editable?: boolean;
 }>(), {
@@ -38,12 +39,14 @@ const emit = defineEmits<{
   (event: "update:titleName", titleName: string): void;
   (event: "update:level", level: string): void;
   (event: "update:name", name: string): void;
+  (event: "update:battery", battery: string): void;
+  (event: "update:superChat", superChat: string): void;
 }>();
 
 const { captainType, titleName, level, name, battery, superChat } = useVModels(props, emit);
 const { editable } = toRefs(props);
 
-const scBackground = useSCBackground(computed(() => battery.value));
+const scBackground = useSCBackground(computed(() => battery.value.toString()));
 </script>
 
 <style scoped>

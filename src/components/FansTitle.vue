@@ -30,30 +30,20 @@
     </ClientOnly>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
-        <FocusedInput v-model="titleName" input-class="w-13 text-white">
-          <template #default="{ value }">
-            {{ value || "    " }}
-          </template>
-        </FocusedInput>
+        <FocusedInput v-model="titleName" input-class="w-13 text-white" />
       </div>
       <div class="bg-white flex items-center p-x-4px box-border">
-        <FocusedInput v-model="level" input-class="w-5">
-          {{ level }}
-        </FocusedInput>
+        <FocusedInput v-model="level" input-class="w-5" />
       </div>
     </div>
-    <span class="name m-l-2">
-      <FocusedInput v-model="name" input-class="w-40" text-class="w-40">
-        <template #default="{ value }">
-          {{ value || "    " }}
-        </template>
-      </FocusedInput>
-    </span>
+    <div class="name m-l-2 grow-0">
+      <FocusedInput v-model="name" input-class="w-35 name" text-class="w-35" />
+    </div>
   </div>
   <div v-else class="flex items-center">
     <img v-if="showCaptain" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
     <div v-else class="z-1 m-0 h-9 w-1"></div>
-    <div v-if="showTitle" class="title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="!showCaptain ? '' : '-m-l-3'">
+    <div v-if="showTitle" class="shrink-0 title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="!showCaptain ? '' : '-m-l-3'">
       <div class="text-white flex items-center p-r-4px box-border" :class="!showCaptain ? 'p-l-4px' : 'p-l-11px'">
         {{ titleName }}
       </div>
@@ -61,7 +51,9 @@
         {{ level }}
       </div>
     </div>
-    <span class="name" :class="showTitle ? 'm-l-2' : 'm-l-1'">{{ name }}</span>
+    <div class="name truncate" :class="showTitle ? 'm-l-2' : 'm-l-1'">
+      {{ name }}
+    </div>
   </div>
 </template>
 
@@ -132,7 +124,7 @@ const nameColor = useNameColor(computed(() => captainType.value));
   background: linear-gradient(to right, v-bind("titleBackground[0]"), v-bind("titleBackground[1]"));
 }
 
-.name {
+:global(.name) {
   color: v-bind(nameColor)
 }
 
