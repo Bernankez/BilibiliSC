@@ -8,10 +8,10 @@ export default defineConfig({
     colors: {
       primary: colorPrimaryRed,
       default: colorDefault,
-      darkDefault: colorDarkDefault,
+      darkdefault: colorDarkDefault,
       disabled: colorDisabled,
       background: colorBackground,
-      darkBackground: colorDarkBackground,
+      darkbackground: colorDarkBackground,
     },
   },
 });
