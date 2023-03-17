@@ -5,7 +5,7 @@
     </slot>
   </template>
   <template v-else-if="!showInput">
-    <div :style="textStyle" class="textClass inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1" :class="(holder && !modelValue) ? ' whitespace-pre' : ''" @click="onShowInput">
+    <div :style="textStyle" class="inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1" :class="[textClass, (holder && !modelValue) ? ' whitespace-pre' : '']" @click="onShowInput">
       <slot :value="modelValue">
         {{ holder ? modelValue || '    ' : modelValue }}
       </slot>
