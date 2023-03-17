@@ -8,9 +8,13 @@
       </div>
     </div>
     <div class="text-white p-2 box-border">
-      <FocusedInput v-model="superChat" :input-element="textareaRef" :editable="editable" input-class="w-full text-white" text-class="w-full">
+      <FocusedInput v-model="superChat" :input-element="textareaRef?.$el" :editable="editable" input-class="w-full text-white" text-class="w-full">
         <template #input>
-          <textarea ref="textareaRef" v-model="superChat" rows="2" class="w-full bg-#ffffff55 outline-none border-none rounded-1 text-white text-4"></textarea>
+          <NInput ref="textareaRef" v-model:value="superChat" :style="textareaReset" autosize type="textarea" clearable round placeholder="">
+            <template #clear-icon>
+              <div class="i-uil:times-circle text-darkdefault"></div>
+            </template>
+          </NInput>
         </template>
       </FocusedInput>
     </div>
@@ -18,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from "vue";
+import type { InputInst } from "naive-ui";
 import { CaptainTypes } from "@/types";
 
 const props = withDefaults(defineProps<{
@@ -52,10 +58,26 @@ const { editable } = toRefs(props);
 
 const scBackground = useSCBackground(computed(() => battery.value.toString()));
 
-const textareaRef = ref<HTMLTextAreaElement>();
+const textareaRef = ref<InputInst & ComponentPublicInstance>();
+const textareaShow = useElementVisibility(computed(() => textareaRef.value?.$el));
+watchEffect(() => {
+  if (textareaShow.value) { textareaRef.value?.focus(); }
+});
+
+const textareaReset = ref({
+  "--n-border-hover": "none",
+  "--n-border-focus": "none",
+  "--n-box-shadow-focus": "none",
+  "--n-border": "none",
+  "background": "#ffffff55",
+});
 </script>
 
 <style scoped>
+:deep(.n-input__textarea-el){
+  color: white;
+}
+
 .super-chat {
   background-color: v-bind("scBackground[0]");
 }

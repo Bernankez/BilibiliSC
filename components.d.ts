@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     FocusedInput: typeof import('./src/components/FocusedInput.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
+    NInput: typeof import('naive-ui')['NInput']
     NPopover: typeof import('naive-ui')['NPopover']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
