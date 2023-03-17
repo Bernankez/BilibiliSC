@@ -8,7 +8,11 @@
       </div>
     </div>
     <div class="text-white p-2 box-border">
-      <FocusedInput v-model="superChat" :editable="editable" input-class="w-full text-white" text-class="w-full" />
+      <FocusedInput v-model="superChat" :input-element="textareaRef" :editable="editable" input-class="w-full text-white" text-class="w-full">
+        <template #input>
+          <textarea ref="textareaRef" v-model="superChat" rows="2" class="w-full bg-#ffffff55 outline-none border-none rounded-1 text-white text-4"></textarea>
+        </template>
+      </FocusedInput>
     </div>
   </div>
 </template>
@@ -47,6 +51,8 @@ const { captainType, titleName, level, name, battery, superChat } = useVModels(p
 const { editable } = toRefs(props);
 
 const scBackground = useSCBackground(computed(() => battery.value.toString()));
+
+const textareaRef = ref<HTMLTextAreaElement>();
 </script>
 
 <style scoped>

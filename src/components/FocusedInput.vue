@@ -5,7 +5,7 @@
     </slot>
   </template>
   <template v-else-if="!showInput">
-    <div :style="textStyle" :class="textClass" class="inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1 whitespace-pre" @click="() => showInput = true">
+    <div :style="textStyle" class="textClass inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1" :class="(holder && !modelValue) ? ' whitespace-pre' : ''" @click="onShowInput">
       <slot :value="modelValue">
         {{ holder ? modelValue || '    ' : modelValue }}
       </slot>
@@ -47,6 +47,13 @@ const showInput = ref(false);
 const inputRef = ref<HTMLInputElement>();
 const inputElement = computed(() => _inputElement?.value || inputRef.value);
 onClickOutside(inputElement, () => showInput.value = false);
+
+function onShowInput() {
+  showInput.value = true;
+  nextTick(() => {
+    inputElement.value?.focus();
+  });
+}
 </script>
 
 <style lang="scss" scoped>

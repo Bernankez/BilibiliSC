@@ -30,7 +30,7 @@
     </ClientOnly>
     <div class="title-background text-14px -m-l-3 flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden">
       <div class="text-white flex items-center p-l-11px p-r-4px box-border">
-        <FocusedInput v-model="titleName" input-class="w-13 text-white" />
+        <FocusedInput v-model="titleName" input-class="w-10 text-white" />
       </div>
       <div class="bg-white flex items-center p-x-4px box-border">
         <FocusedInput v-model="level" input-class="w-5" />
