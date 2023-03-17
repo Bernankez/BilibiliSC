@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Action: typeof import('./src/components/Action.vue')['default']
     Background: typeof import('./src/components/Background.vue')['default']
     FansTitle: typeof import('./src/components/FansTitle.vue')['default']
     FocusedInput: typeof import('./src/components/FocusedInput.vue')['default']
