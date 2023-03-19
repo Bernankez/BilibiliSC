@@ -7,7 +7,7 @@
             <span class="gradient-text">预&nbsp;</span>
             <span class="gradient-text">览&nbsp;</span>
           </div>
-          <SuperChat ref="superChatRef" v-model:captain-type="captain" v-model:title-name="titleName" v-model:level="level" v-model:name="name" v-model:battery="battery" v-model:super-chat="superChat" class="-m-t-5" :editable="false" />
+          <SuperChat v-model:captain-type="captain" v-model:title-name="titleName" v-model:level="level" v-model:name="name" v-model:battery="battery" v-model:super-chat="superChat" class="-m-t-5" :editable="false" />
         </div>
       </Transition>
       <SuperChat v-model:captain-type="captain" v-model:title-name="titleName" v-model:level="level" v-model:name="name" v-model:battery="battery" v-model:super-chat="superChat" :editable="true" />
@@ -17,6 +17,7 @@
         <Action icon="i-uil:arrow-to-bottom" title="下载" @click="onDownload" />
       </div>
     </div>
+    <SuperChat v-show="false" ref="superChatRef" v-model:captain-type="captain" v-model:title-name="titleName" v-model:level="level" v-model:name="name" v-model:battery="battery" v-model:super-chat="superChat" :base-font-size="32" :editable="false" />
   </Background>
 </template>
 
@@ -34,9 +35,14 @@ const superChat = ref("哪里要改点哪里");
 const message = useMessage();
 const preview = ref(true);
 
+async function getSnapshotBlob() {
+  // TODO get the real size of the super chat
+  return await snapshot(superChatRef.value?.$el, { width: 740, height: 200, dpi: 300, style: { boxShadow: "unset", display: "flex" } });
+}
+
 const superChatRef = ref<InstanceType<typeof SuperChat>>();
 async function onDownload() {
-  const blob = await snapshot(superChatRef.value?.$el, { scale: 2, dpi: 300 });
+  const blob = await getSnapshotBlob();
   download(blob, { filename: "superchat" });
 }
 
@@ -59,7 +65,7 @@ watchEffect(() => {
 });
 async function onCopy() {
   if (navigator.clipboard && ClipboardItem) {
-    const blob = await snapshot(superChatRef.value?.$el, { scale: 2, dpi: 300 });
+    const blob = await getSnapshotBlob();
     const data = [new ClipboardItem({ [blob.type]: blob })];
     await navigator.clipboard.write(data);
     message.success("复制成功");
