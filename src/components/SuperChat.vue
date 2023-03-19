@@ -2,13 +2,15 @@
   <div class="super-chat w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
     <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
       <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" v-model:level="level" v-model:name="name" class="truncate" :editable="editable" />
-      <div class="text-default shrink-0">
+      <div class="text-default flex items-center flex-gap-1 min-w-fit">
         <FocusedInput v-model="battery" :editable="editable" input-class="w-12" />
-        电池
+        <div class="shrink-0">
+          电池
+        </div>
       </div>
     </div>
     <div class="text-white p-2 box-border">
-      <FocusedInput v-model="superChat" :input-element="textareaRef?.$el" :editable="editable" input-class="w-full text-white" text-class="w-full">
+      <FocusedInput v-model="superChat" :input-element="textareaRef?.$el" :editable="editable" input-class="w-full text-white" text-class="w-full whitespace-pre-wrap break-words">
         <template #input>
           <NInput ref="textareaRef" v-model:value="superChat" :style="textareaReset" autosize type="textarea" clearable round placeholder="">
             <template #clear-icon>
@@ -69,7 +71,7 @@ const textareaReset = ref({
   "--n-border-focus": "none",
   "--n-box-shadow-focus": "none",
   "--n-border": "none",
-  "background": "#ffffff55",
+  "background": "#ffffff33",
 });
 </script>
 

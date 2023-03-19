@@ -1,8 +1,10 @@
 <template>
   <template v-if="!editable">
-    <slot :value="modelValue">
-      {{ modelValue }}
-    </slot>
+    <div :class="textClass" :style="textStyle">
+      <slot :value="modelValue">
+        {{ modelValue }}
+      </slot>
+    </div>
   </template>
   <template v-else-if="!showInput">
     <div :style="textStyle" class="inline-block cursor-pointer hover:bg-background-light bg-opacity-20! transition rounded-1" :class="[textClass, (holder && !modelValue) ? ' whitespace-pre' : '']" @click="onShowInput">

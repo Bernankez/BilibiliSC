@@ -1,7 +1,7 @@
 <template>
   <NMessageProvider>
     <Header />
-    <Main>
+    <Main class="overflow-auto min-h-full grid">
       <RouterView />
     </Main>
   </NMessageProvider>

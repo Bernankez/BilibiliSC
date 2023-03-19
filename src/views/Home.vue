@@ -1,6 +1,6 @@
 <template>
   <Background :show="true">
-    <div class="flex flex-col items-center flex-gap-5">
+    <div class="flex flex-col p-y-10 box-border items-center flex-gap-5">
       <Transition name="preview">
         <div v-if="preview" class="bg-white bg-opacity-50 backdrop-blur backdrop-saturate-50 rounded-3 p-3 p-t-0 box-border">
           <div class="flex justify-evenly text-center font-italic text-15 font-bold text-gradient-from-white-to-black leading-[1]">
@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { NGradientText } from "naive-ui";
 import { CaptainTypes } from "@/types";
 import SuperChat from "@/components/SuperChat.vue";
 
@@ -30,7 +29,7 @@ const titleName = ref("粉丝牌");
 const level = ref("21");
 const name = ref("用户名");
 const battery = ref(2000);
-const superChat = ref("说点什么吧");
+const superChat = ref("哪里要改点哪里");
 
 const message = useMessage();
 const preview = ref(true);
