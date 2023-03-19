@@ -1,12 +1,15 @@
 <template>
-  <Header />
-  <Main>
-    <RouterView />
-  </Main>
+  <NMessageProvider>
+    <Header />
+    <Main>
+      <RouterView />
+    </Main>
+  </NMessageProvider>
 </template>
 
 <script setup lang="ts">
 import { colorBackground, colorDarkBackground, colorDisabled, colorPrimaryRed as colorPrimary } from "@bernankez/theme";
+import { NMessageProvider } from "naive-ui";
 </script>
 
 <style lang="scss">

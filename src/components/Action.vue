@@ -1,15 +1,32 @@
 <template>
-  <div role="button" :class="sizeClass.button" class="group flex justify-center items-center rounded-99 bg-background hover:bg-background-lighter transition bg-opacity-50! backdrop-blur backdrop-saturate-50 cursor-pointer shadow hover:shadow-md active:shadow active:shadow-inset" @click="onClick">
+  <div v-if="!title && !$slots.title" role="button" aria-label="Action Button" :class="sizeClass.button" class="group flex justify-center items-center rounded-99 bg-background hover:bg-background-lighter transition bg-opacity-50! backdrop-blur backdrop-saturate-50 cursor-pointer shadow hover:shadow-md active:shadow active:shadow-inset" @click="onClick">
     <slot :class="defaultClass">
-      <div :class="[defaultClass, icon, sizeClass.icon] "></div>
+      <div :class="[defaultClass, icon, sizeClass.icon]"></div>
     </slot>
   </div>
+  <ClientOnly v-else>
+    <NPopover placement="bottom" raw :show-arrow="false" :delay="500">
+      <template #trigger>
+        <div role="button" aria-label="Action Button" :class="sizeClass.button" class="group flex justify-center items-center rounded-99 bg-background hover:bg-background-lighter transition bg-opacity-50! backdrop-blur backdrop-saturate-50 cursor-pointer shadow hover:shadow-md active:shadow active:shadow-inset" @click="onClick">
+          <slot :class="defaultClass">
+            <div :class="[defaultClass, icon, sizeClass.icon]"></div>
+          </slot>
+        </div>
+      </template>
+      <div class="flex flex-col rounded-2 p-y-1 p-x-2 box-border bg-#ffffff77 backdrop-blur backdrop-saturate-50">
+        <slot name="title">
+          {{ title }}
+        </slot>
+      </div>
+    </NPopover>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
-const { size = "medium", icon = "" } = defineProps<{
+const { size = "medium", icon = "", title = "" } = defineProps<{
   size?: "small" | "medium" | "large";
   icon?: string;
+  title?: string;
 }>();
 
 const emit = defineEmits<{

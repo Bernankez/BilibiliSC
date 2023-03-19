@@ -22,6 +22,9 @@
   "dependencies": {
     "@vueuse/core": "^9.13.0",
     "@vueuse/head": "^1.1.9",
+    "changedpi": "^1.0.4",
+    "dom-to-image": "^2.6.0",
+    "html2canvas": "^1.4.1",
     "naive-ui": "^2.34.3",
     "pinia": "^2.0.32",
     "vue": "^3.2.45",
@@ -31,6 +34,7 @@
     "@bernankez/eslint-config": "^0.2.2",
     "@bernankez/theme": "^0.1.2",
     "@iconify-json/uil": "^1.1.4",
+    "@types/dom-to-image": "^2.6.4",
     "@types/node": "^18.14.2",
     "@vitejs/plugin-legacy": "^4.0.1",
     "@vitejs/plugin-vue": "^4.0.0",

@@ -34,7 +34,7 @@ export default defineConfig({
       imports: ["vue", "@vueuse/core", "@vueuse/head", "vue-router", {
         "naive-ui": ["useDialog", "useMessage", "useNotification", "useLoadingbar"],
       }],
-      dirs: ["./src/composables"],
+      dirs: ["./src/composables", "./src/utils"],
     }),
     Components({
       dirs: ["src/components", "src/layouts"],
