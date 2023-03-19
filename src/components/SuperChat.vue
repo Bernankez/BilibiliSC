@@ -1,15 +1,15 @@
 <template>
-  <div class="super-chat w-370px flex flex-col rounded-2 p-1px box-border shadow-lg">
-    <div class="super-chat-info rounded-lt-2 rounded-rt-2 p-1 box-border flex items-center justify-between bg-#ffffffdd">
+  <div class="super-chat flex flex-col box-border shadow-lg">
+    <div class="super-chat-info box-border flex items-center justify-between bg-#ffffffdd">
       <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" v-model:level="level" v-model:name="name" class="truncate" :editable="editable" />
-      <div class="text-default flex items-center flex-gap-1 min-w-fit">
-        <FocusedInput v-model="battery" :editable="editable" input-class="w-12" />
+      <div class="super-chat-battery text-default flex items-center min-w-fit">
+        <FocusedInput v-model="battery" :editable="editable" input-class="super-chat-battery__input" />
         <div class="shrink-0">
           电池
         </div>
       </div>
     </div>
-    <div class="text-white p-2 box-border">
+    <div class="super-chat-superchat text-white box-border">
       <FocusedInput v-model="superChat" :input-element="textareaRef?.$el" :editable="editable" input-class="w-full text-white" text-class="w-full whitespace-pre-wrap break-words">
         <template #input>
           <NInput ref="textareaRef" v-model:value="superChat" :style="textareaReset" autosize type="textarea" clearable round placeholder="">
@@ -27,6 +27,7 @@
 import type { ComponentPublicInstance } from "vue";
 import type { InputInst } from "naive-ui";
 import { CaptainTypes } from "@/types";
+import { baseFontSizeSymbol } from "@/types/injections";
 
 const props = withDefaults(defineProps<{
   captainType?: CaptainTypes;
@@ -36,6 +37,7 @@ const props = withDefaults(defineProps<{
   battery?: string | number;
   superChat?: string;
   editable?: boolean;
+  baseFontSize?: number;
 }>(), {
   captainType: CaptainTypes.captain,
   level: "21",
@@ -44,6 +46,7 @@ const props = withDefaults(defineProps<{
   battery: "300",
   superChat: "你的留言",
   editable: false,
+  baseFontSize: 16,
 });
 
 const emit = defineEmits<{
@@ -56,7 +59,10 @@ const emit = defineEmits<{
 }>();
 
 const { captainType, titleName, level, name, battery, superChat } = useVModels(props, emit);
-const { editable } = toRefs(props);
+const { editable, baseFontSize: _baseFontSize } = toRefs(props);
+
+provide(baseFontSizeSymbol, _baseFontSize);
+const baseFontSize = computed(() => `${_baseFontSize.value}px`);
 
 const scBackground = useSCBackground(computed(() => battery.value.toString()));
 
@@ -81,10 +87,31 @@ const textareaReset = ref({
 }
 
 .super-chat {
+  padding: calc(v-bind(baseFontSize) * 1 / 16);
+  width: calc(v-bind(baseFontSize) * 370 / 16);
+  border-radius: calc(0.5 * v-bind(baseFontSize));
   background-color: v-bind("scBackground[0]");
 }
 
 .super-chat-info {
+  padding: calc(0.25 * v-bind(baseFontSize));
+  border-top-left-radius: calc(0.5 * v-bind(baseFontSize));
+  border-top-right-radius: calc(0.5 * v-bind(baseFontSize));
   background-color: v-bind("scBackground[1]");
+}
+
+.super-chat-battery {
+  font-size: calc(1 * v-bind(baseFontSize));
+  grid-gap: calc(0.25 * v-bind(baseFontSize));
+  gap: calc(0.25 * v-bind(baseFontSize));
+}
+
+:global(.super-chat-battery__input) {
+  width: calc(3 * v-bind(baseFontSize));
+}
+
+.super-chat-superchat {
+  font-size: calc(1 * v-bind(baseFontSize));
+  padding: calc(0.5 * v-bind(baseFontSize));
 }
 </style>

@@ -41,17 +41,17 @@
     </div>
   </div>
   <div v-else class="flex items-center">
-    <img v-if="showCaptain" class="z-1 h-9 w-9" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
-    <div v-else class="z-1 m-0 h-9 w-1"></div>
-    <div v-if="showTitle" class="shrink-0 title-background text-14px flex rounded-3px b-yellow-200 b-1 b-solid overflow-hidden" :class="!showCaptain ? '' : '-m-l-3'">
-      <div class="text-white flex items-center p-r-4px box-border" :class="!showCaptain ? 'p-l-4px' : 'p-l-11px'">
+    <img v-if="showCaptain" class="fans-title-captain z-1" :src="captainLogos[captainType]" :draggable="false" alt="captain-logo" />
+    <div v-else class="fans-title-captain--holder z-1 m-0"></div>
+    <div v-if="showTitle" class="fans-title-title-wrapper shrink-0 title-background flex b-yellow-200 b-solid overflow-hidden" :class="!showCaptain ? '' : 'fans-title-title-wrapper--show-captain'">
+      <div class="fans-title-title-name text-white flex items-center box-border" :class="!showCaptain ? 'fans-title-title-name--un-show-captain' : 'fans-title-title-name--show-captain'">
         {{ titleName }}
       </div>
-      <div class="bg-white flex items-center p-x-4px box-border">
+      <div class="fans-title-title-level bg-white flex items-center box-border">
         {{ level }}
       </div>
     </div>
-    <div class="name truncate" :class="showTitle ? 'm-l-2' : 'm-l-1'">
+    <div class="name truncate" :class="showTitle ? 'name--show-title' : 'name--un-show-title'">
       {{ name }}
     </div>
   </div>
@@ -66,6 +66,7 @@ import governorThousand from "@/assets/images/icons/governor_thousand.png";
 import viceroy from "@/assets/images/icons/viceroy.png";
 import viceroyThousand from "@/assets/images/icons/viceroy_thousand.png";
 import { CaptainTypes } from "@/types";
+import { baseFontSizeSymbol } from "@/types/injections";
 
 const props = withDefaults(defineProps<{
   captainType?: CaptainTypes;
@@ -90,6 +91,8 @@ const emit = defineEmits<{
 
 const { titleName, level, name, editable } = useVModels(props, emit);
 const { captainType } = toRefs(props);
+const _baseFontSize = inject(baseFontSizeSymbol, ref(16));
+const baseFontSize = computed(() => `${_baseFontSize.value}px`);
 
 const titleBackground = useTitleBackground(computed(() => level.value));
 
@@ -125,7 +128,19 @@ const nameColor = useNameColor(computed(() => captainType.value));
 }
 
 :global(.name) {
-  color: v-bind(nameColor)
+  color: v-bind(nameColor);
+}
+
+.name {
+  font-size: calc(v-bind(baseFontSize) * 1);
+}
+
+.name--un-show-title {
+  margin-left: calc(v-bind(baseFontSize) * 0.25);
+}
+
+.name--show-title {
+  margin-left: calc(v-bind(baseFontSize) * 0.5);
 }
 
 .captain-list {
@@ -139,5 +154,42 @@ const nameColor = useNameColor(computed(() => captainType.value));
     --un-bg-opacity: 0.5 !important;
     @apply p-1 box-border w-15 h-10 object-scale-down rounded-6px cursor-pointer hover-bg-background-lighter transition;
   }
+}
+
+.fans-title-captain {
+  height: calc(2.25 * v-bind(baseFontSize));
+  width: calc(2.25 * v-bind(baseFontSize));
+}
+
+.fans-title-captain--holder {
+  height: calc(2.25 * v-bind(baseFontSize));
+  width: calc(0.25 * 16px);
+}
+
+.fans-title-title-wrapper {
+  font-size: calc(v-bind(baseFontSize) * 14 / 16);
+  border-radius: calc(v-bind(baseFontSize) * 3 / 16);
+  border-width: calc(v-bind(baseFontSize) * 1 / 16);
+}
+
+.fans-title-title-wrapper--show-captain {
+  margin-left: calc(v-bind(baseFontSize) * -0.75);
+}
+
+.fans-title-title-name {
+  padding-right: calc(v-bind(baseFontSize) * 4 / 16);
+}
+
+.fans-title-title-name--show-captain {
+  padding-left: calc(v-bind(baseFontSize) * 11 / 16);
+}
+
+.fans-title-title-name--un-show-captain {
+  padding-left: calc(v-bind(baseFontSize) * 4 / 16);
+}
+
+.fans-title-title-level {
+  padding-left: calc(v-bind(baseFontSize) * 4 / 16);
+  padding-right: calc(v-bind(baseFontSize) * 4 / 16);
 }
 </style>
