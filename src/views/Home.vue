@@ -31,7 +31,7 @@ const captain = ref(CaptainTypes.captain);
 const titleName = ref("粉丝牌");
 const level = ref("21");
 const name = ref("用户名");
-const battery = ref(2000);
+const battery = ref(1380);
 const superChat = ref("哪里要改点哪里");
 
 const message = useMessage();

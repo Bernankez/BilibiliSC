@@ -53,9 +53,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
       manifest: {
-        name: "Bilibili SuperChat",
-        short_name: "Bli-SC",
-        description: "A tool making bilibili SuperChat pic",
+        name: "SuperChat",
+        short_name: "SuperChat",
+        description: "Generate custom SuperChat image.",
         icons: [
           {
             src: "/pwa-192x192.png",
