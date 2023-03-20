@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     FansTitle: typeof import('./src/components/FansTitle.vue')['default']
     FocusedInput: typeof import('./src/components/FocusedInput.vue')['default']
     Header: typeof import('./src/layouts/Header.vue')['default']
+    InfoDialog: typeof import('./src/components/InfoDialog.vue')['default']
     Main: typeof import('./src/layouts/Main.vue')['default']
     NInput: typeof import('naive-ui')['NInput']
     NPopover: typeof import('naive-ui')['NPopover']
