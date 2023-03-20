@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from "dayjs";
 import { CaptainTypes } from "@/types";
 import SuperChat from "@/components/SuperChat.vue";
 import { useHiddenElementStyle } from "@/composables/useHiddenElementStyle";
@@ -45,7 +46,6 @@ async function getSnapshotBlob() {
   const width = Number(style.value.width?.split("px")[0]);
   const height = Number(style.value.height?.split("px")[0]);
   if (width && height) {
-    console.log(width, height);
     return await snapshot(superChatRef.value?.$el, { width, height, dpi: 300, style: { boxShadow: "unset", display: "flex" } });
   }
   return Promise.reject(new Error("Cannot get width or height."));
@@ -53,7 +53,7 @@ async function getSnapshotBlob() {
 
 async function onDownload() {
   const blob = await getSnapshotBlob();
-  download(blob, { filename: "superchat" });
+  download(blob, { filename: `superchat-${dayjs().format("YYYY-MM-DD_HH-mm-ss")}` });
 }
 
 const { text } = useTextSelection();

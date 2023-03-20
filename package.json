@@ -23,6 +23,7 @@
     "@vueuse/core": "^9.13.0",
     "@vueuse/head": "^1.1.9",
     "changedpi": "^1.0.4",
+    "dayjs": "^1.11.7",
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.4.1",
     "naive-ui": "^2.34.3",

@@ -15,6 +15,7 @@ specifiers:
   bumpp: ^9.0.0
   changedpi: ^1.0.4
   changelogithub: ^0.12.7
+  dayjs: ^1.11.7
   dom-to-image: ^2.6.0
   eslint: ^8.35.0
   happy-dom: ^8.9.0
@@ -43,6 +44,7 @@ dependencies:
   '@vueuse/core': 9.13.0_vue@3.2.47
   '@vueuse/head': 1.1.9_vue@3.2.47
   changedpi: 1.0.4
+  dayjs: 1.11.7
   dom-to-image: 2.6.0
   html2canvas: 1.4.1
   naive-ui: 2.34.3_vue@3.2.47
@@ -3533,6 +3535,10 @@ packages:
   /date-fns/2.29.3:
     resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
     engines: {node: '>=0.11'}
+    dev: false
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: false
 
   /de-indent/1.0.2:
