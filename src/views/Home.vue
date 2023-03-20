@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { CaptainTypes } from "@/types";
 import SuperChat from "@/components/SuperChat.vue";
+import { useHiddenElementStyle } from "@/composables/useHiddenElementStyle";
 
 const captain = ref(CaptainTypes.captain);
 const titleName = ref("粉丝牌");
@@ -35,12 +36,21 @@ const superChat = ref("哪里要改点哪里");
 const message = useMessage();
 const preview = ref(true);
 
+const superChatRef = ref<InstanceType<typeof SuperChat>>();
+
+const el = computed(() => superChatRef.value?.$el);
+const { style } = useHiddenElementStyle(el);
+
 async function getSnapshotBlob() {
-  // TODO get the real size of the super chat
-  return await snapshot(superChatRef.value?.$el, { width: 740, height: 200, dpi: 300, style: { boxShadow: "unset", display: "flex" } });
+  const width = Number(style.value.width?.split("px")[0]);
+  const height = Number(style.value.height?.split("px")[0]);
+  if (width && height) {
+    console.log(width, height);
+    return await snapshot(superChatRef.value?.$el, { width, height, dpi: 300, style: { boxShadow: "unset", display: "flex" } });
+  }
+  return Promise.reject(new Error("Cannot get width or height."));
 }
 
-const superChatRef = ref<InstanceType<typeof SuperChat>>();
 async function onDownload() {
   const blob = await getSnapshotBlob();
   download(blob, { filename: "superchat" });
