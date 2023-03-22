@@ -5,7 +5,7 @@
         <div class="i-uil:times m-l-auto text-7 font-bold cursor-pointer" @click="() => modelValue = false"></div>
       </div>
       <div class="text-4 text-default">
-        上面是操作区，下面是预览区，要改哪里点哪里就行。
+        上面是预览区，下面是操作区，要改哪里点哪里就行。
       </div>
       <ClientOnly>
         <NPopover placement="bottom" raw :show-arrow="false" :delay="500">
