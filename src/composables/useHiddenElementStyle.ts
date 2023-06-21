@@ -1,7 +1,7 @@
 import type { Fn, MaybeComputedElementRef, MaybeElement, UnRefElementReturn } from "@vueuse/core";
 
 export function useHiddenElementStyle(target: MaybeComputedElementRef) {
-  const style = ref({} as CSSStyleDeclaration);
+  const style = ref<Record<keyof CSSStyleDeclaration, string>>({} as any);
 
   function updateStyle<T extends MaybeElement>(el: UnRefElementReturn<T>) {
     if (!el) { return; }
@@ -15,12 +15,12 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
       el.style.display = "unset";
       el.style.visibility = "hidden";
       el.style.position = "absolute";
-      style.value = { ...window.getComputedStyle(el) };
+      style.value = transformCSSProperties(window.getComputedStyle(el));
       el.style.position = <string>position;
       el.style.visibility = <string>visibility;
       el.style.display = <string>display;
     } else {
-      style.value = { ...window.getComputedStyle(el) };
+      style.value = transformCSSProperties(window.getComputedStyle(el));
     }
   }
 
@@ -49,6 +49,17 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
   return {
     style,
   };
+}
+
+function transformCSSProperties(styles: CSSStyleDeclaration) {
+  const style: Record<string, string> = {};
+  const length = styles.length;
+  for (let i = 0; i < length; i++) {
+    const prop = styles[i];
+    const value = styles.getPropertyValue(prop);
+    style[prop] = value;
+  }
+  return style as Record<keyof CSSStyleDeclaration, string>;
 }
 
 function createStyleSelector(options?: { style?: CSSStyleDeclaration; computedStyle?: CSSStyleDeclaration }) {
