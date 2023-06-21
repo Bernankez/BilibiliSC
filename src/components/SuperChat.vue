@@ -1,5 +1,5 @@
 <template>
-  <div class="super-chat flex flex-col box-border shadow-lg">
+  <div class="super-chat z-1 relative flex flex-col box-border shadow-lg">
     <div class="super-chat-info box-border flex items-center justify-between bg-#ffffffdd">
       <FansTitle v-model:captain-type="captainType" v-model:title-name="titleName" v-model:level="level" v-model:name="name" class="truncate" :editable="editable" />
       <div class="super-chat-battery text-default flex items-center min-w-fit">
